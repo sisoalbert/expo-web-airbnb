@@ -1,9 +1,9 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import React from "react";
 import { useMediaQuery } from "react-responsive";
 import TopRow from "../topheaderrow";
-import SearchBarMobile from "../mobilesearchbar";
-import SearchBarBig from "../bigscreensearchbar";
+import SearchBarMobile from "./../searchBars/mobilesearchbar";
+import SearchBarBig from "./../searchBars/bigscreensearchbar";
 
 const Header = () => {
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });

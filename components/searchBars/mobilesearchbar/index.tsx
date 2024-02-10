@@ -23,10 +23,11 @@ const SearchBarMobile = () => {
           alignItems: "center",
           shadowColor: "#000",
           shadowOffset: {
-            width: 2,
+            width: 0,
             height: 2,
           },
           shadowOpacity: 0.1,
+          marginBottom: 10,
         }}
       >
         <View
@@ -35,7 +36,7 @@ const SearchBarMobile = () => {
           }}
         >
           <Image
-            source={require("../../assets/icons/search.png")}
+            source={require("../../../assets/icons/search.png")}
             style={{
               width: 18,
               height: 18,
@@ -65,14 +66,14 @@ const SearchBarMobile = () => {
             justifyContent: "center",
             shadowColor: "#000",
             shadowOffset: {
-              width: 2,
+              width: 0,
               height: 2,
             },
             shadowOpacity: 0.1,
           }}
         >
           <Image
-            source={require("../../assets/icons/filter.png")}
+            source={require("../../../assets/icons/filter.png")}
             style={{
               width: 18,
               height: 18,

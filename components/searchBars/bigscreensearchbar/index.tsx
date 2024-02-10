@@ -27,10 +27,11 @@ const SearchBarBig = ({ isTablet }: { isTablet: boolean }) => {
           alignItems: "center",
           shadowColor: "#000",
           shadowOffset: {
-            width: 2,
+            width: 0,
             height: 2,
           },
           shadowOpacity: 0.1,
+          marginBottom: 10,
         }}
       >
         <View style={{ paddingLeft: 10, flex: 2 }}>
@@ -62,16 +63,10 @@ const SearchBarBig = ({ isTablet }: { isTablet: boolean }) => {
               flexDirection: "row",
               alignItems: "center",
               justifyContent: "center",
-              shadowColor: "#000",
-              shadowOffset: {
-                width: 2,
-                height: 2,
-              },
-              shadowOpacity: 0.1,
             }}
           >
             <Image
-              source={require("../../assets/icons/search-white.png")}
+              source={require("../../../assets/icons/search-white.png")}
               style={{
                 width: 18,
                 height: 18,
