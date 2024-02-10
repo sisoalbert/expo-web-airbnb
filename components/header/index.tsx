@@ -21,7 +21,6 @@ const Header = () => {
     >
       {!isMobile && <TopRow isTablet={isTablet} />}
       {isMobile ? <SearchBarMobile /> : <SearchBarBig isTablet={isTablet} />}
-
       {isMobile && <Text>Mobile</Text>}
       {isTablet && <Text>Tablet</Text>}
       {isBigScreen && <Text>BigScreen</Text>}

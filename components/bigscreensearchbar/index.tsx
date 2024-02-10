@@ -1,4 +1,4 @@
-import { StyleSheet, Text, View, Image } from "react-native";
+import { StyleSheet, Text, View, Image, Platform } from "react-native";
 import React from "react";
 
 const SearchBarBig = ({ isTablet }: { isTablet: boolean }) => {
@@ -11,7 +11,7 @@ const SearchBarBig = ({ isTablet }: { isTablet: boolean }) => {
   return (
     <View
       style={[
-        isTablet ? { paddingHorizontal: 0 } : { paddingHorizontal: "20%" },
+        isTablet ? { width: "auto" } : { width: 930, alignSelf: "center" },
       ]}
     >
       <View
@@ -87,5 +87,3 @@ const SearchBarBig = ({ isTablet }: { isTablet: boolean }) => {
 };
 
 export default SearchBarBig;
-
-const styles = StyleSheet.create({});
