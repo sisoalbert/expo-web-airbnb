@@ -15,16 +15,24 @@ const Header = () => {
   return (
     <View
       style={[
-        { backgroundColor: "white", paddingTop: 15 },
+        {
+          backgroundColor: "white",
+          paddingTop: 15,
+        },
         isMobile ? { paddingHorizontal: 20 } : { paddingHorizontal: 40 },
       ]}
     >
       {!isMobile && <TopRow isTablet={isTablet} />}
-      {isMobile ? <SearchBarMobile /> : <SearchBarBig isTablet={isTablet} />}
+      {isMobile ? (
+        <View style={{ flexDirection: "row" }}>
+          <SearchBarMobile />
+        </View>
+      ) : (
+        <SearchBarBig isTablet={isTablet} />
+      )}
       {isMobile && <Text>Mobile</Text>}
       {isTablet && <Text>Tablet</Text>}
       {isBigScreen && <Text>BigScreen</Text>}
-      <Text></Text>
     </View>
   );
 };

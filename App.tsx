@@ -1,13 +1,14 @@
+import "react-native-match-media-polyfill";
 import { StatusBar } from "expo-status-bar";
-import { StyleSheet, Text, View } from "react-native";
+import { SafeAreaView, StyleSheet, Text, View } from "react-native";
 import Header from "./components/header";
 
 export default function App() {
   return (
-    <View style={styles.container}>
+    <SafeAreaView style={styles.container}>
       <Header />
       <StatusBar style="auto" />
-    </View>
+    </SafeAreaView>
   );
 }
 
