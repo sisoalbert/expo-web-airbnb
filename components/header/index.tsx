@@ -10,7 +10,6 @@ const Header = () => {
   const isTablet = useMediaQuery({
     query: "(min-width: 768px) and (max-width: 1024px)",
   });
-  const isBigScreen = useMediaQuery({ query: "(min-width: 1024px)" });
 
   return (
     <View
@@ -30,9 +29,6 @@ const Header = () => {
       ) : (
         <SearchBarBig isTablet={isTablet} />
       )}
-      {isMobile && <Text>Mobile</Text>}
-      {isTablet && <Text>Tablet</Text>}
-      {isBigScreen && <Text>BigScreen</Text>}
     </View>
   );
 };
