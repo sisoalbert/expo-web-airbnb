@@ -3262,7 +3262,7 @@ expo-status-bar@~1.11.1:
   resolved "https://registry.npmjs.org/expo-status-bar/-/expo-status-bar-1.11.1.tgz"
   integrity sha512-ddQEtCOgYHTLlFUe/yH67dDBIoct5VIULthyT3LRJbEwdpzAgueKsX2FYK02ldh440V87PWKCamh7R9evk1rrg==
 
-expo@*, expo@~50.0.6:
+expo@^50.0.6:
   version "50.0.6"
   resolved "https://registry.npmjs.org/expo/-/expo-50.0.6.tgz"
   integrity sha512-CVg0h9bmYeTWtw4EOL0HKNL+zu84YZl5nLWRPKrcpt8jox1VQQAYmvJGMdM5gSRxq5CFNLlWGxq9O8Zvfi1SOQ==
@@ -5236,6 +5236,13 @@ react-is@^18.0.0:
   version "18.2.0"
   resolved "https://registry.npmjs.org/react-is/-/react-is-18.2.0.tgz"
   integrity sha512-xWGDIW6x921xtzPkhiULtthJHoJvBbF3q26fzloPCK0hsvxtPVelvftw3zjbHWSkR2km9Z+4uxbDDK/6Zw9B8w==
+
+react-native-match-media-polyfill@^1.0.3:
+  version "1.0.3"
+  resolved "https://registry.yarnpkg.com/react-native-match-media-polyfill/-/react-native-match-media-polyfill-1.0.3.tgz#bdf1b954495cc3a406772b6498490612d823c719"
+  integrity sha512-sSooGWJ42hnSCgp+S2ZNjJUf1d3qvtrKY3dLUaEmsFNw6bjCE+gG52PyfBEJs1Eib3P59E6iLp/4NhP7ysmpJw==
+  dependencies:
+    css-mediaquery "^0.1.2"
 
 react-native-web@~0.19.6:
   version "0.19.10"
