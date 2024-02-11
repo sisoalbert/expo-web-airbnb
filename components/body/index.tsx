@@ -1,114 +1,85 @@
-import React from "react";
+import React, { useState } from "react";
 import {
-  ScrollView,
-  StyleSheet,
-  View,
+  FlatList,
   Text,
-  Pressable,
-  Button,
+  View,
+  StyleSheet,
+  SafeAreaView,
+  Image,
+  useWindowDimensions,
 } from "react-native";
+import { useMediaQuery } from "react-responsive";
 
-export default function PressablePage() {
-  const [eventLog, updateEventLog] = React.useState([]);
-  const [disabled, setDisabled] = React.useState(false);
-  const [delay, setDelay] = React.useState(0);
+const data = [
+  { id: 1, name: "Item 1" },
+  { id: 2, name: "Item 2" },
+  { id: 3, name: "Item 3" },
+  { id: 4, name: "Item 4" },
+  { id: 5, name: "Item 5" },
+  { id: 6, name: "Item 6" },
+];
 
-  const handleEvent = (eventName) => {
-    return () => {
-      const limit = 10;
-      updateEventLog((state) => {
-        const nextState = state.slice(0, limit - 1);
-        nextState.unshift(eventName);
-        return nextState;
-      });
-    };
+const MyFlatList = () => {
+  const { width } = useWindowDimensions();
+
+  const isMobile = useMediaQuery({ maxWidth: 500 });
+  const isTablet = useMediaQuery({ minWidth: 501, maxWidth: 930 });
+  const isLaptop = useMediaQuery({ minWidth: 931, maxWidth: 1020 });
+  const isDesktop = useMediaQuery({ minWidth: 1021, maxWidth: 1600 });
+  const isLargeDesktop = useMediaQuery({ minWidth: 1601, maxWidth: 1920 });
+  const isExtraLargeDesktop = useMediaQuery({ minWidth: 1921 });
+
+  // Define columns based on device type
+  const numColumns = () => {
+    if (isMobile) return 1;
+    if (isTablet) return 2;
+    if (isLaptop) return 3;
+    if (isDesktop) return 4;
+    if (isLargeDesktop) return 5;
+    if (isExtraLargeDesktop) return 6;
+    return 1; // Default to 1
+  };
+
+  const renderItem = ({ item }) => {
+    // Calculate image dimensions based on current number of columns
+    const imageSize = width / numColumns() - 20;
+
+    return (
+      <View>
+        <Image
+          source={require("../../assets/images/image1.webp")}
+          style={{
+            width: imageSize,
+            height: imageSize,
+            backgroundColor: "#ccc",
+            borderRadius: 10,
+            margin: 10,
+          }}
+        />
+        <Text>{item.name}</Text>
+      </View>
+    );
   };
 
   return (
-    <View style={styles.container}>
-      <Pressable
-        delayLongPress="750"
-        delayPressIn={delay}
-        delayPressOut={delay}
-        disabled={disabled}
-        onBlur={handleEvent("onBlur")}
-        onFocus={handleEvent("onFocus")}
-        onHoverIn={handleEvent("onHoverIn")}
-        onHoverOut={handleEvent("onHoverOut")}
-        onKeyDown={(e) => {
-          console.log(e.key);
-        }}
-        onLongPress={handleEvent("onLongPress - 750ms delay")}
-        onPress={handleEvent(`onPress - ${delay}ms delay`)}
-        onPressIn={handleEvent(`onPressIn - ${delay}ms delay`)}
-        onPressOut={handleEvent(`oPressOut - ${delay}ms delay`)}
-        role="button"
-        style={(state) => [
-          styles.pressable,
-          !disabled && state.focused && styles.focused,
-          !disabled && state.hovered && styles.hovered,
-          !disabled && state.pressed && styles.pressed,
-          disabled && styles.disabled,
-        ]}
-      >
-        <Text>Pressable</Text>
-      </Pressable>
-
-      <View style={styles.buttons}>
-        <Button
-          onPress={() => setDisabled((state) => !state)}
-          title={disabled ? "Enable" : "Disable"}
-        />
-        <View style={{ width: "1rem" }} />
-        <Button
-          onPress={() => setDelay((state) => (state === 0 ? 350 : 0))}
-          title={delay === 0 ? "Add delay" : "Remove delay"}
-        />
-      </View>
-
-      <ScrollView style={styles.eventLogBox}>
-        {eventLog.map((e, i) => (
-          <Text key={i}>{e}</Text>
-        ))}
-      </ScrollView>
-    </View>
+    <SafeAreaView style={styles.container}>
+      <FlatList
+        key={numColumns()}
+        data={data}
+        renderItem={renderItem}
+        keyExtractor={(item) => item.id.toString()}
+        numColumns={numColumns()}
+      />
+    </SafeAreaView>
   );
-}
+};
 
 const styles = StyleSheet.create({
   container: {
-    maxWidth: 500,
-    padding: "1rem",
-    width: "100%",
-  },
-  pressable: {
-    borderRadius: 5,
-    padding: 10,
-    borderWidth: 1,
-    outlineWidth: 0,
-    backgroundColor: "#fff",
-  },
-  hovered: {
-    backgroundColor: "#ddd",
-  },
-  focused: {
-    boxShadow: "0px 0px 0px 1px blue",
-  },
-  pressed: {
-    backgroundColor: "lightblue",
-  },
-  disabled: {
-    opacity: 0.5,
-  },
-  buttons: {
-    flexDirection: "row",
-    marginVertical: "1rem",
-  },
-  eventLogBox: {
-    padding: 10,
-    height: 120,
-    borderWidth: StyleSheet.hairlineWidth,
-    borderColor: "#f0f0f0",
-    backgroundColor: "#f9f9f9",
+    flex: 1,
+    justifyContent: "center",
+    padding: 16,
   },
 });
+
+export default MyFlatList;

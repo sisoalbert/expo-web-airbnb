@@ -35,20 +35,27 @@ function HomeScreen() {
 
   return (
     <View
-      style={{
-        flex: 1,
-        backgroundColor: "#fff",
-        borderTopColor: "#DDDDDD",
-        borderTopWidth: 1,
-        paddingTop: 10,
-      }}
+      style={[
+        {
+          flex: 1,
+          backgroundColor: "#fff",
+          paddingTop: 10,
+        },
+        !isMobile && { borderTopColor: "#DDDDDD", borderTopWidth: 1 },
+      ]}
     >
       <View
-        style={{
-          backgroundColor: "#fff",
-        }}
+        style={[
+          {
+            backgroundColor: "#fff",
+          },
+          isMobile && { paddingHorizontal: 20 },
+          isTablet && { paddingHorizontal: 40 },
+          isBigScreen && { paddingHorizontal: 60 },
+        ]}
       >
-        <Select />
+        <Select isMobile={isMobile} isTablet={isTablet} />
+        <MyFlatList isMobile={isMobile} isTablet={isTablet} />
       </View>
       <View
         style={{
@@ -92,6 +99,7 @@ function AppNav() {
 }
 import Body from "./components/body";
 import Select from "./components/Select";
+import MyFlatList from "./components/body";
 
 export default function App() {
   return (

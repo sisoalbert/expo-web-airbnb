@@ -8,10 +8,19 @@ import {
 } from "react-native";
 import React, { useState, useRef } from "react";
 import { filterOptions } from "../../assets/icons/filters";
+import { back, filter, next } from "../../assets/icons";
 
-const Select = () => {
+const Select = ({
+  isMobile,
+  isTablet,
+}: {
+  isMobile: boolean;
+  isTablet: boolean;
+}) => {
   const [currentIndex, setCurrentIndex] = useState(0); // Track current item index
   const flatListRef = useRef(null); // Ref to FlatList component
+
+  console.log("currentIndex", currentIndex);
 
   const handleNext = () => {
     // Check if there's a next item
@@ -34,25 +43,37 @@ const Select = () => {
 
   return (
     <View style={{ flexDirection: "row" }}>
-      <View
-        style={{
-          left: 0,
-          position: "absolute",
-          zIndex: 1,
-          justifyContent: "center",
-          alignItems: "center",
-          backgroundColor: "coral",
-          height: 100,
-          paddingHorizontal: 10,
-          paddingVertical: 20,
-        }}
-      >
-        <Pressable style={styles.button} onPress={handleBack}>
-          <Text>Back</Text>
-        </Pressable>
-      </View>
+      {!isMobile && (
+        <View
+          style={{
+            left: 0,
+            position: "absolute",
+            zIndex: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            height: 100,
+            paddingHorizontal: 10,
+            paddingVertical: 20,
+            display: currentIndex === 0 ? "none" : "flex",
+          }}
+        >
+          <Pressable style={styles.button} onPress={handleBack}>
+            <Image
+              source={back}
+              style={{ height: 20, width: 20 }}
+              resizeMode="contain"
+            />
+          </Pressable>
+        </View>
+      )}
 
-      <View style={{ flex: 0.8, backgroundColor: "white" }}>
+      <View
+        style={[
+          { flex: 0.8, backgroundColor: "white" },
+          isTablet && { flex: 0.9 },
+          isMobile && { flex: 1 },
+        ]}
+      >
         <FlatList
           ref={flatListRef}
           data={filterOptions}
@@ -60,48 +81,98 @@ const Select = () => {
           initialScrollIndex={currentIndex} // Set initial scroll position
           renderItem={({ item }) => (
             <Pressable
-              style={{
-                flexDirection: "column",
-                alignItems: "center",
-                justifyContent: "center",
-                padding: 20,
-              }}
+              style={(state: any) => [
+                state.hovered && {
+                  borderBottomColor: "#ddd",
+                  borderBottomWidth: 1,
+                },
+                {
+                  flexDirection: "column",
+                  alignItems: "center",
+                  justifyContent: "center",
+                  padding: 20,
+                },
+              ]}
             >
               <Image
                 source={item.url}
-                style={{ height: 30, width: 30 }}
+                style={{
+                  height: 30,
+                  width: 30,
+                  opacity:
+                    currentIndex === filterOptions.indexOf(item) ? 1 : 0.5,
+                }}
                 resizeMode="contain"
               />
-              <Text>{item.name}</Text>
+              <Text
+                style={{
+                  color:
+                    currentIndex === filterOptions.indexOf(item)
+                      ? "#000"
+                      : "#717171",
+                  fontSize: 12,
+                  fontWeight:
+                    currentIndex === filterOptions.indexOf(item)
+                      ? "bold"
+                      : "400",
+                }}
+              >
+                {item.name}
+              </Text>
             </Pressable>
           )}
           keyExtractor={(item) => item.id.toString()}
           showsHorizontalScrollIndicator={false}
         />
       </View>
-      <View style={styles.buttonContainer}>
-        <Pressable style={styles.button} onPress={handleNext}>
-          <Text>Next</Text>
-        </Pressable>
+      {!isMobile && (
         <View
-          style={{
-            height: 50,
-            flexDirection: "row",
-            alignItems: "center",
-            borderColor: "red",
-            borderWidth: 1,
-            borderRadius: 16,
-            paddingHorizontal: 10,
-          }}
+          style={[
+            {
+              flexDirection: "row",
+              justifyContent: "space-between",
+              alignItems: "center",
+              marginTop: 10,
+              flex: 0.1,
+            },
+            isTablet && { flex: 0.2 },
+          ]}
         >
-          <Image
-            source={require("../../assets/icons/filter.png")}
-            style={{ height: 20, width: 20, marginHorizontal: 10 }}
-            resizeMode="contain"
-          />
-          <Text>Filters</Text>
+          <View
+            style={{
+              marginRight: 20,
+              display:
+                currentIndex === filterOptions.length - 4 ? "none" : "flex",
+            }}
+          >
+            <Pressable style={styles.button} onPress={handleNext}>
+              <Image
+                source={next}
+                style={{ height: 20, width: 20 }}
+                resizeMode="contain"
+              />
+            </Pressable>
+          </View>
+          <View
+            style={{
+              height: 50,
+              flexDirection: "row",
+              alignItems: "center",
+              borderColor: "#DDDDDD",
+              borderWidth: 1,
+              borderRadius: 16,
+              paddingHorizontal: 10,
+            }}
+          >
+            <Image
+              source={filter}
+              style={{ height: 20, width: 20, marginHorizontal: 10 }}
+              resizeMode="contain"
+            />
+            <Text>Filters</Text>
+          </View>
         </View>
-      </View>
+      )}
     </View>
   );
 };
@@ -109,20 +180,14 @@ const Select = () => {
 export default Select;
 
 const styles = StyleSheet.create({
-  buttonContainer: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-    alignItems: "center",
-    marginTop: 10,
-    // right: 0,
-    // position: "absolute",
-    flex: 0.2,
-  },
-
   button: {
-    paddingHorizontal: 20,
-    paddingVertical: 10,
-    backgroundColor: "#DDDDDD",
-    borderRadius: 5,
+    backgroundColor: "#fff",
+    borderColor: "#DDDDDD",
+    borderWidth: 2,
+    borderRadius: 30 / 2,
+    width: 30,
+    height: 30,
+    justifyContent: "center",
+    alignItems: "center",
   },
 });
