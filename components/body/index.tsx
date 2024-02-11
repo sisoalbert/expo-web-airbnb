@@ -21,7 +21,6 @@ const data = [
 
 const MyFlatList = () => {
   const { width } = useWindowDimensions();
-
   const isMobile = useMediaQuery({ maxWidth: 500 });
   const isTablet = useMediaQuery({ minWidth: 501, maxWidth: 930 });
   const isLaptop = useMediaQuery({ minWidth: 931, maxWidth: 1020 });
@@ -42,8 +41,9 @@ const MyFlatList = () => {
 
   const renderItem = ({ item }) => {
     // Calculate image dimensions based on current number of columns
-    const imageSize = width / numColumns() - 20;
-
+    const columnCount = numColumns();
+    const marginSize = 10; // Adjust margin size as needed
+    const imageSize = (width - marginSize * (columnCount + 1)) / columnCount;
     return (
       <View>
         <Image
@@ -53,7 +53,7 @@ const MyFlatList = () => {
             height: imageSize,
             backgroundColor: "#ccc",
             borderRadius: 10,
-            margin: 10,
+            margin: marginSize,
           }}
         />
         <Text>{item.name}</Text>
