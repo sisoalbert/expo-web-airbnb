@@ -1,16 +1,15 @@
-import { Image, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleSheet, View } from "react-native";
 import React from "react";
 import { useMediaQuery } from "react-responsive";
 import TopRow from "../topheaderrow";
-import SearchBarMobile from "../mobilesearchbar";
-import SearchBarBig from "../bigscreensearchbar";
+import SearchBarMobile from "./../searchBars/mobilesearchbar";
+import SearchBarBig from "./../searchBars/bigscreensearchbar";
 
 const Header = () => {
   const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
   const isTablet = useMediaQuery({
     query: "(min-width: 768px) and (max-width: 1024px)",
   });
-  const isBigScreen = useMediaQuery({ query: "(min-width: 1024px)" });
 
   return (
     <View
@@ -30,9 +29,6 @@ const Header = () => {
       ) : (
         <SearchBarBig isTablet={isTablet} />
       )}
-      {isMobile && <Text>Mobile</Text>}
-      {isTablet && <Text>Tablet</Text>}
-      {isBigScreen && <Text>BigScreen</Text>}
     </View>
   );
 };
