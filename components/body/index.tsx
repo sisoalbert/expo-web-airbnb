@@ -9,14 +9,22 @@ import {
   useWindowDimensions,
 } from "react-native";
 import { useMediaQuery } from "react-responsive";
+import {
+  image1,
+  image2,
+  image3,
+  image4,
+  image5,
+  image6,
+} from "../../assets/images";
 
 const data = [
-  { id: 1, name: "Item 1" },
-  { id: 2, name: "Item 2" },
-  { id: 3, name: "Item 3" },
-  { id: 4, name: "Item 4" },
-  { id: 5, name: "Item 5" },
-  { id: 6, name: "Item 6" },
+  { id: 1, name: "Item 1", url: image1 },
+  { id: 2, name: "Item 2", url: image2 },
+  { id: 3, name: "Item 3", url: image3 },
+  { id: 4, name: "Item 4", url: image4 },
+  { id: 5, name: "Item 5", url: image5 },
+  { id: 6, name: "Item 6", url: image6 },
 ];
 
 const MyFlatList = () => {
@@ -47,7 +55,7 @@ const MyFlatList = () => {
     return (
       <View>
         <Image
-          source={require("../../assets/images/image1.webp")}
+          source={item.url}
           style={{
             width: imageSize,
             height: imageSize,
