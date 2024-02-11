@@ -1,5 +1,5 @@
 import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useState, useRef } from "react";
 
 const Select = () => {
   const filterOptions = [
@@ -16,33 +16,82 @@ const Select = () => {
     { id: 11, name: "Option 11" },
     { id: 12, name: "Option 12" },
   ];
+
+  const [currentIndex, setCurrentIndex] = useState(0); // Track current item index
+  const flatListRef = useRef(null); // Ref to FlatList component
+
+  const handleNext = () => {
+    // Check if there's a next item
+    if (currentIndex < filterOptions.length - 1) {
+      setCurrentIndex(currentIndex + 1);
+      flatListRef.current.scrollToIndex({ index: currentIndex + 1 }); // Smooth scroll
+    }
+  };
+
+  const handleBack = () => {
+    // Check if there's a previous item
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+      flatListRef.current.scrollToIndex({ index: currentIndex - 1 }); // Smooth scroll
+    }
+  };
+
   return (
-    <View>
-      <FlatList
-        data={filterOptions}
-        horizontal
-        renderItem={({ item }) => (
-          <Pressable
-            style={{
-              flexDirection: "column",
-              alignItems: "center",
-              justifyContent: "center",
-              padding: 10,
-              backgroundColor: "#fff",
-              borderWidth: 1,
-              borderColor: "#DDDDDD",
-            }}
-          >
-            <View style={{ height: 15, width: 15, backgroundColor: "red" }} />
-            <Text>{item.name}</Text>
-          </Pressable>
-        )}
-        keyExtractor={(item) => item.id.toString()}
-      />
+    <View style={{ flexDirection: "row" }}>
+      <View style={{ flex: 0.8 }}>
+        <FlatList
+          ref={flatListRef}
+          data={filterOptions}
+          horizontal
+          initialScrollIndex={currentIndex} // Set initial scroll position
+          renderItem={({ item }) => (
+            <Pressable
+              style={{
+                flexDirection: "column",
+                alignItems: "center",
+                justifyContent: "center",
+                padding: 10,
+                backgroundColor: "#fff",
+                borderWidth: 1,
+                borderColor: "#DDDDDD",
+              }}
+            >
+              <View style={{ height: 15, width: 15, backgroundColor: "red" }} />
+              <Text>{item.name}</Text>
+            </Pressable>
+          )}
+          keyExtractor={(item) => item.id.toString()}
+          showsHorizontalScrollIndicator={false}
+        />
+      </View>
+      <View style={styles.buttonContainer}>
+        <Pressable style={styles.button} onPress={handleBack}>
+          <Text>Back</Text>
+        </Pressable>
+        <Pressable style={styles.button} onPress={handleNext}>
+          <Text>Next</Text>
+        </Pressable>
+      </View>
     </View>
   );
 };
 
 export default Select;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  buttonContainer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+    marginTop: 10,
+    right: 0,
+    position: "absolute",
+    flex: 0.2,
+  },
+
+  button: {
+    paddingHorizontal: 20,
+    paddingVertical: 10,
+    backgroundColor: "#DDDDDD",
+    borderRadius: 5,
+  },
+});
