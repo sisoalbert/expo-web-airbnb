@@ -1,22 +1,15 @@
-import { FlatList, Pressable, StyleSheet, Text, View } from "react-native";
+import {
+  FlatList,
+  Pressable,
+  StyleSheet,
+  Text,
+  View,
+  Image,
+} from "react-native";
 import React, { useState, useRef } from "react";
+import { filterOptions } from "../../assets/icons/filters";
 
 const Select = () => {
-  const filterOptions = [
-    { id: 1, name: "Option 1" },
-    { id: 2, name: "Option 2" },
-    { id: 3, name: "Option 3" },
-    { id: 4, name: "Option 4" },
-    { id: 5, name: "Option 5" },
-    { id: 6, name: "Option 6" },
-    { id: 7, name: "Option 7" },
-    { id: 8, name: "Option 8" },
-    { id: 9, name: "Option 9" },
-    { id: 10, name: "Option 10" },
-    { id: 11, name: "Option 11" },
-    { id: 12, name: "Option 12" },
-  ];
-
   const [currentIndex, setCurrentIndex] = useState(0); // Track current item index
   const flatListRef = useRef(null); // Ref to FlatList component
 
@@ -24,7 +17,9 @@ const Select = () => {
     // Check if there's a next item
     if (currentIndex < filterOptions.length - 1) {
       setCurrentIndex(currentIndex + 1);
-      flatListRef.current.scrollToIndex({ index: currentIndex + 1 }); // Smooth scroll
+
+      flatListRef.current &&
+        flatListRef.current.scrollToIndex({ index: currentIndex + 1 });
     }
   };
 
@@ -32,13 +27,32 @@ const Select = () => {
     // Check if there's a previous item
     if (currentIndex > 0) {
       setCurrentIndex(currentIndex - 1);
-      flatListRef.current.scrollToIndex({ index: currentIndex - 1 }); // Smooth scroll
+      flatListRef.current &&
+        flatListRef.current.scrollToIndex({ index: currentIndex - 1 });
     }
   };
 
   return (
     <View style={{ flexDirection: "row" }}>
-      <View style={{ flex: 0.8 }}>
+      <View
+        style={{
+          left: 0,
+          position: "absolute",
+          zIndex: 1,
+          justifyContent: "center",
+          alignItems: "center",
+          backgroundColor: "coral",
+          height: 100,
+          paddingHorizontal: 10,
+          paddingVertical: 20,
+        }}
+      >
+        <Pressable style={styles.button} onPress={handleBack}>
+          <Text>Back</Text>
+        </Pressable>
+      </View>
+
+      <View style={{ flex: 0.8, backgroundColor: "white" }}>
         <FlatList
           ref={flatListRef}
           data={filterOptions}
@@ -50,13 +64,14 @@ const Select = () => {
                 flexDirection: "column",
                 alignItems: "center",
                 justifyContent: "center",
-                padding: 10,
-                backgroundColor: "#fff",
-                borderWidth: 1,
-                borderColor: "#DDDDDD",
+                padding: 20,
               }}
             >
-              <View style={{ height: 15, width: 15, backgroundColor: "red" }} />
+              <Image
+                source={item.url}
+                style={{ height: 30, width: 30 }}
+                resizeMode="contain"
+              />
               <Text>{item.name}</Text>
             </Pressable>
           )}
@@ -65,12 +80,27 @@ const Select = () => {
         />
       </View>
       <View style={styles.buttonContainer}>
-        <Pressable style={styles.button} onPress={handleBack}>
-          <Text>Back</Text>
-        </Pressable>
         <Pressable style={styles.button} onPress={handleNext}>
           <Text>Next</Text>
         </Pressable>
+        <View
+          style={{
+            height: 50,
+            flexDirection: "row",
+            alignItems: "center",
+            borderColor: "red",
+            borderWidth: 1,
+            borderRadius: 16,
+            paddingHorizontal: 10,
+          }}
+        >
+          <Image
+            source={require("../../assets/icons/filter.png")}
+            style={{ height: 20, width: 20, marginHorizontal: 10 }}
+            resizeMode="contain"
+          />
+          <Text>Filters</Text>
+        </View>
       </View>
     </View>
   );
@@ -82,9 +112,10 @@ const styles = StyleSheet.create({
   buttonContainer: {
     flexDirection: "row",
     justifyContent: "space-between",
+    alignItems: "center",
     marginTop: 10,
-    right: 0,
-    position: "absolute",
+    // right: 0,
+    // position: "absolute",
     flex: 0.2,
   },
 
