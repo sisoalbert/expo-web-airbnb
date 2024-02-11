@@ -37,14 +37,31 @@ function HomeScreen() {
     <View
       style={{
         flex: 1,
-        alignItems: "center",
-        justifyContent: "center",
         backgroundColor: "#fff",
+        borderTopColor: "#DDDDDD",
+        borderTopWidth: 1,
+        paddingTop: 10,
       }}
     >
-      <Text>{isMobile && "Mobile"}</Text>
-      <Text>{isTablet && "Tablet"}</Text>
-      <Text>{isBigScreen && "BigScreen"}</Text>
+      <View
+        style={{
+          backgroundColor: "#fff",
+        }}
+      >
+        <Select />
+      </View>
+      <View
+        style={{
+          flex: 1,
+          alignItems: "center",
+          justifyContent: "center",
+          backgroundColor: "#fff",
+        }}
+      >
+        <Text>{isMobile && "Mobile"}</Text>
+        <Text>{isTablet && "Tablet"}</Text>
+        <Text>{isBigScreen && "BigScreen"}</Text>
+      </View>
     </View>
   );
 }
@@ -74,13 +91,14 @@ function AppNav() {
   );
 }
 import Body from "./components/body";
+import Select from "./components/Select";
 
 export default function App() {
   return (
     <SafeAreaView style={styles.container}>
       <Header />
       <AppNav />
-      <Body />
+      {/* <Body /> */}
       <StatusBar style="auto" />
     </SafeAreaView>
   );
