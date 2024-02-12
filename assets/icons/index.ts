@@ -6,5 +6,18 @@ import globe from "./globe.png";
 import menu from "./menu.png";
 import search from "./search.png";
 import searchWhite from "./search-white.png";
+import logo from "./logo.png";
+import logoSM from "./logoSM.png";
 
-export { next, back, filter, avatar, globe, menu, search, searchWhite };
+export {
+  next,
+  back,
+  filter,
+  avatar,
+  globe,
+  menu,
+  search,
+  searchWhite,
+  logo,
+  logoSM,
+};
